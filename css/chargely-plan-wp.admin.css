@@ -1,0 +1,515 @@
+/* @group Placeholders */
+
+label.placeholder {
+    cursor: text;
+    padding: 4px 4px 4px 4px;
+    color: #999999;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #999999;
+}
+
+input:placeholder,
+textarea:placeholder {
+    color: #999999;
+}
+
+h4 {
+    font-size: 0.8em;
+}
+
+
+/* @end */
+
+.price-columns {
+    overflow: auto;
+    padding-right: 15px;
+}
+
+
+/* @group icons */
+
+.price-columns .column-handle,
+.price-columns .feature-handle {
+    float: right;
+    cursor: move;
+}
+
+.price-columns .ui-icon {
+    float: right;
+    margin-left: 5px;
+}
+
+strong {
+    font-weight: 600 !important;
+}
+
+.pricing {
+    color: #000;
+    font-size: 15px;
+}
+
+
+/* @end */
+
+.price-columns .column {
+    border: 1px solid #CCC;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #f8f7f7;
+    padding: 10px;
+    width: 275px;
+    margin: 0 4px 4px 4px;
+    float: left;
+}
+
+.price-columns input {
+    width: 100%;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.price-columns input::last-child {
+    margin-bottom: 0px;
+}
+
+.price-columns .feature {
+    /* margin-top: 1em; */
+    padding-top: 1em;
+    border-top: 1px solid #CCC;
+    background: #f8f7f7;
+}
+
+.price-columns .feature div {
+    clear: both;
+}
+
+.price-columns .feature .ui-icon {
+    margin-bottom: 10px;
+}
+
+.price-columns .feature textarea {
+    width: 100%;
+}
+
+.price-columns small.description {
+    display: block;
+    margin: 0 4px 8px 4px;
+}
+
+.price-columns h4 a {
+    display: block;
+    float: right;
+    font-weight: normal;
+}
+
+.price-columns label {
+    display: inline-block;
+}
+
+
+/* @group Type */
+
+.price-columns .type {
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.price-columns label {
+    margin-top: 0px;
+}
+
+.price-columns .type input[type="radio"] {
+    margin: 0px;
+    margin-right: 4px;
+}
+
+.price-columns .type input {
+    width: auto;
+}
+
+
+/* @end */
+
+.price-columns .addnew {
+    border: 2px dashed #CCC;
+    text-align: center;
+    padding: 7em 0;
+    height: 100%;
+    font-size: 25px;
+    color: #999;
+    cursor: pointer;
+}
+
+.price-columns .addnew:hover {
+    border-color: #999;
+}
+
+.temptag {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0;
+    padding: 9px 0 4px;
+    line-height: 29px;
+    padding-right: 15px;
+}
+
+
+/* ribbon */
+
+.wpsm_ribbon {
+    position: absolute;
+    right: 7px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 134px;
+    height: 125px;
+    text-align: right;
+}
+
+.wpsm_ribbon span {
+    font-size: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: none;
+    text-align: center;
+    line-height: 36px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 170px;
+    display: block;
+    background: #79A70A;
+    background: linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
+    box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+    position: absolute;
+    top: 30px;
+    right: -37px;
+}
+
+.wpsm_ribbon2 span {
+    background: linear-gradient(#03A9F4 0%, #2196F3 100%);
+}
+
+.wpsm_ribbon span::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid rgba(0, 0, 0, 0.7);
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid rgba(0, 0, 0, 0.7);
+}
+
+.wpsm_ribbon span::after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 100%;
+    z-index: -1;
+    border-left: 3px solid transparent;
+    border-right: 3px solid rgba(0, 0, 0, 0.7);
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid rgba(0, 0, 0, 0.7);
+}
+
+#accordion_designs .wpsm_ribbon {
+    right: 10px;
+}
+
+.design_btn {
+    text-decoration: none;
+}
+
+.ftr_img {
+    background: #ffffff;
+    padding: 8px;
+    border-color: #ffffff;
+}
+
+.demoftr {
+    margin-bottom: 20px;
+}
+
+.demoftr {
+    background: transparent;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    padding: 0px;
+}
+
+.wpsm_img_responsive {
+    width: 97%;
+    display: block;
+}
+
+.col-md-4 {
+    /* width: 100%; */
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: #611F69;
+    padding: 8px 14px 8px !important;
+    color: #fff!important;
+    font-size: 11px;
+    line-height: normal;
+    border-radius: 2px;
+    transition: 0.1s linear all;
+    margin-top: 10px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.postbox .inside {
+    padding: 16px;
+    line-height: 1.3;
+    font-size: 19px;
+}
+
+code,
+kbd {
+    padding: 8px;
+    font-size: 17px;
+}
+
+h3.txt {
+    font-size: 1.1em;
+}
+
+#poststuff h2 {
+    color: #23282d;
+    font-size: 23px;
+}
+
+
+/* SETTINGS */
+
+
+/* Add-ac.php file css */
+
+#add_colorbox {
+    min-width: 255px;
+    border: 0px solid #e5e5e5;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, .0);
+    background: transparent;
+}
+
+#add_colorbox .hndle,
+#add_colorbox .handlediv {
+    display: none
+}
+
+.ac_label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.ui-sortable-placeholder {
+    border: 2px dotted #f2f2f2 !important;
+    visibility: visible !important;
+    background: transparent !important;
+}
+
+
+/* settings.php css */
+
+.description {
+    display: none
+}
+
+.acc_table tr {
+    border-bottom: 1px solid #F1F1F1;
+}
+
+.acc_table th {
+    vertical-align: top;
+    text-align: left;
+    padding: 15px 10px 10px 0;
+    width: 100%;
+    line-height: 1.3;
+    font-weight: 600;
+    display: block;
+    color: #555;
+    font-size: 16px;
+}
+
+.acc_table td {
+    margin-bottom: 9px;
+    padding: 10px 2px;
+    line-height: 1.3;
+    vertical-align: middle;
+    display: block;
+}
+
+#accordion_setting {
+    box-shadow: 0 0 6px rgba(0, 0, 0, .2) !important;
+}
+
+.size-slider {
+    width: 70%;
+    display: inline-block;
+}
+
+.slider-text {
+    background-color: #611F69!important;
+    border-radius: 5px;
+    font-size: 16px;
+    padding-top: 2px;
+    text-align: center;
+    width: 46px !important;
+    height: 34px;
+    color: #fff !important;
+    margin-left: 20px;
+    border-color: #ffffff !important;
+    margin-right: 0px;
+    display: inline-block !important;
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.setting_color .ui-state-default,
+.setting_color .ui-widget-content .ui-state-default {
+    background-color: #fff;
+    border: 0px solid #c5dbec;
+    border-radius: 100%;
+    cursor: move;
+    height: 12px;
+    left: 0;
+    /* top: -9px; */
+    position: absolute;
+    width: 12px;
+    -webkit-box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+}
+
+.setting_color .ui-widget-content {
+    border: 0px solid #a6c9e2;
+    background: #a9acb1;
+    color: #222222;
+    height: 5px;
+}
+
+.setting_color .ui-widget-header {
+    border: 0px solid #611F69;
+    background: #611F69;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* Radio Button Toggle css */
+
+.switch {
+    position: relative;
+    height: 33px;
+    width: 102px;
+    background: #fff;
+    border: 0px solid #f2f2f2;
+    border-radius: 0px;
+    -webkit-box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+}
+
+.switch-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 50px;
+    line-height: 31px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Dosis", sans-serif;
+}
+
+.switch-label:active {
+    font-weight: bold;
+}
+
+.switch-label-off {
+    padding-left: 0px;
+}
+
+.switch-label-on {
+    padding-right: 0px;
+}
+
+.switch-input {
+    display: none !important;
+}
+
+.switch-input:checked+.switch-label {
+    font-weight: bold;
+    color: #ffffff !important;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.25);
+    -webkit-transition: 0.05s ease-out;
+    -moz-transition: 0.05s ease-out;
+    -o-transition: 0.05s ease-out;
+    transition: 0.05s ease-out;
+}
+
+.switch-input:checked+.switch-label-on~.switch-selection {
+    /* Note: left: 50% doesn't transition in WebKit */
+    left: 50px;
+}
+
+.switch-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 52px;
+    height: 33px;
+    background: #E74B42;
+    border-radius: 0px;
+    background-color: #E74B42 !important;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#EA5B53), to(E74B42)) !important;
+    background-image: -moz-linear-gradient(top, #EA5B53, #E74B42) !important;
+    background-image: -ms-linear-gradient(top, #EA5B53, #E74B42) !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EA5B53), color-stop(100%, #E74B42)) !important;
+    background-image: -webkit-linear-gradient(top, #EA5B53, #E74B42) !important;
+    background-image: -o-linear-gradient(top, #EA5B53, #E74B42) !important;
+    background-image: -linear-gradient(top, #EA5B53, #E74B42) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#EA5B53', endColorstr='#E74B42', GradientType=0) !important;
+    border-color: #E74B42 !important;
+    border-color: #E74B42 !important;
+    -webkit-box-shadow: inset 0 1px 0 #E74B42, 0 1px 0 rgba(0, 0, 0, 0.15) !important;
+    box-shadow: inset 0 1px 0 #E74B42, 0 1px 0 rgba(0, 0, 0, 0.15) !important;
+    -webkit-transition: left 0.15s ease-out;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
+}
+
+.ac_tooltip,
+.ac_tooltip:hover {
+    float: left;
+    padding: 10px;
+    background-color: #eee;
+    width: 85px;
+    margin: 0 10px 10px 0px;
+    text-align: center;
+    color: #000;
+    margin-top: 15px;
+}
+
+.wp-picker-container,
+.wp-picker-container:active {
+    display: block;
+}

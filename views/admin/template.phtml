@@ -1,0 +1,120 @@
+<style>
+    *{
+        font-family: "Montserrat",sans-serif;
+    }
+    .cards{
+        display: flex;
+        column-gap: 40px;
+        justify-content: center;
+        padding: 50px;    
+    }
+    .card{
+        height: 500px;
+        width: 220px;
+        background-color: #F6F6F6;
+        padding: 30px;
+        box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.15);
+    }
+    .name{
+        color: #252325;
+        font-size: 20px;
+        margin: 0px 0px 25px;
+        font-weight: 600;
+    }
+    .description{
+        color: #706361;
+        font-size: 16px;
+        margin: 0px 0px 30px;
+        height: 50px;
+    }
+    .price{
+        color: #000000;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0px 0px 33px;
+    }
+    .feature{
+        color: #000000;
+        font-size: 16px;
+        padding: 10px 0;
+        font-weight: 400;
+        height: 34px;
+    }
+    .btn{
+        height: 25px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        outline: none;
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 0.625em 1.25em;
+        border-radius: 4px;
+        color: #FFFFFF;
+        background-color: #28772c;
+        padding: 10px 20px; 
+        width: 100px;
+        display: flex;
+        align-items: center;
+    }
+    .btn:hover{
+        background-color: darkgreen;
+        color:  #ffffff;
+    }
+    .rbtn{
+        background: orange;
+        margin: -31px -31px 31px -31px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        color: white;
+        column-gap: 6px;
+    }
+</style>
+
+<div class="cards">
+    <div class="card">
+        <div class="name">Free</div>
+        <div class="description">No cost, no risk, all reward!!</div>
+        <div class="price">$ 0</div>
+        <div class="feature">All you can do for free!</div>
+        <div class="feature">2GB file storage</div>
+        <div class="feature">Upto 10 users</div>
+        <div class="feature">Chat support</div><br>
+        <a href="checkout.phtml" target="_blank" style="text-decoration:none;color:#ffffff;"><div class="btn">Choose Plan</div></a>
+    </div>
+    <div class="card">
+        <div class="name">Basic</div>
+        <div class="description">Unlock essential features for a low price!</div>
+        <div class="price">$ 99 / Every 12 Weeks</div>
+        <div class="feature">Everything in free plus</div>
+        <div class="feature">200GB file storage</div>
+        <div class="feature">Upto 100 users</div>
+        <div class="feature">Upto 100 users</div><br>
+        <a href="checkout.phtml" target="_blank" style="text-decoration:none;color:#ffffff;"><div class="btn">Choose Plan</div></a>
+    </div>
+    <div class="card" style="transform: scale(1.1);border: 3px solid orange;box-shadow: 0 8px 40px rgb(0 0 0 / 24%);">
+        <div class="rbtn">
+        <div style="width: 30px;height: 30px;"><img src="images/star.png" alt="" srcset="" style="height: 100%;width: 100%;"></div>
+            <div style="color: black;font-size: 20px;margin-top: 8px;font-weight: 700;">Popular</div>
+        </div>
+        <div class="name">Pro</div>
+        <div class="description">The ultimate plan for professionals!</div>
+        <div class="price">$ 499 / Every 9 Months</div>
+        <div class="feature">Everything in basic plus</div>
+        <div class="feature">1000 GB file storage</div>
+        <div class="feature">Upto 500 users</div>
+        <div class="feature"style="height: 18px;">Chat and email support</div><br>
+        <a href="checkout.phtml" target="_blank" style="text-decoration:none;color:#ffffff;"><div class="btn">Choose Plan</div></a>
+    </div>
+    <div class="card">
+        <div class="name">Enterprise</div>
+        <div class="description">The solution for complex business needs!</div>
+        <div class="price">$ 999 / Every 1 Year</div>
+        <div class="feature">Everything in pro plus</div>
+        <div class="feature">Unlimited storage</div>
+        <div class="feature">Unlimited users</div>
+        <div class="feature">Dedicated account manager</div><br>
+        <a href="checkout.phtml" target="_blank" style="text-decoration:none;color:#ffffff;"><div class="btn">Choose Plan</div></a>
+    </div>
+</div>

@@ -1,0 +1,241 @@
+<!-- front end work -->
+
+<?php 
+    $settings = get_post_meta( $id,'chargely_plugin_setting' )[0];  
+?>
+
+<style>
+
+    #container_<?php print $id; ?> .price-item{
+        width : <?php print $settings['card_width'] ?>px;
+    }
+
+    #container_<?php print $id; ?> .pricing-head .plan-title {
+        color: <?php print $settings['title_clr'] ?> ;
+        margin: 0px 0px 25px;
+        font-size: <?php print $settings['title_size'] ?>px;
+        font-weight: <?php print $settings['title_font'] ?>;
+        font-family: <?php print $settings['title_font_family'] ?>;
+    }
+
+    #container_<?php print $id; ?> .plan-plandescription {
+        color: <?php print $settings['plandescription_clr'] ?> ;
+        font-size: <?php print $settings['plandescription_size'] ?>px;
+        font-weight: <?php print $settings['plandescription_font'] ?>;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    #container_<?php print $id; ?> .plan-currency {
+        color: <?php print $settings['price_clr'] ?> ;
+        font-size: <?php print $settings['price_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['price_font'] ?>;
+    }
+
+    #container_<?php print $id; ?> .slash {
+        color: <?php print $settings['price_clr'] ?> ;
+        font-size: <?php print $settings['price_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['price_font'] ?>;
+    }
+
+
+    #container_<?php print $id; ?> .price {
+        color: <?php print $settings['price_clr'] ?>;
+        font-size: <?php print $settings['price_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['price_font'] ?>;
+    }
+
+    #container_<?php print $id; ?> .plan-billingperiodtype {
+        color: <?php print $settings['price_clr'] ?> ;
+        font-size: <?php print $settings['price_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['price_font'] ?>;
+    }
+
+    #container_<?php print $id; ?> .pricing-icon {
+        color: <?php print $settings['icon_clr'] ?>;
+        font-size: <?php print $settings['icon_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['icon_font'] ?>;
+    }
+
+    #container_<?php print $id; ?> .button.bth-plan {
+        background: <?php print $settings['button_clr'] ?>;
+        font-weight: <?php print $settings['button_font'] ?>;
+        font-size: <?php print $settings['button_size'] ?>px;
+        border: none;
+        font-family: "Montserrat", sans-serif;
+        color: #ffffff;
+        margin-top: 20px!important;
+        margin-bottom: 30px!important;
+    }
+
+    #container_<?php print $id; ?> .button:hover {
+        background: <?php print $settings['buttonhover_clr'] ?>;
+        color: #f1f1f1;
+        font-family: "Montserrat", sans-serif;
+        border-color: <?php print $settings['buttonhover_clr'] ?>;
+    }
+
+    #container_<?php print $id; ?> .pricing-content .table-content li{
+        color : <?php print $settings['ftr_clr'] ?>;
+        font-size: <?php print $settings['ftr_size'] ?>px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: <?php print $settings['ftr_font'] ?>;
+    }
+
+    #container_<?php print $id; ?> #recommendbtn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 4px;
+    }
+
+    #container_<?php print $id; ?> .plan-recommendbtn{
+        color: <?php print $settings['rbtn_clr'] ?>;
+        text-align: center;
+        font-weight: <?php print $settings['rbtn_text_font'] ?>;
+        font-size: <?php print $settings['rbtn_text_size'] ?>px;
+    }
+
+    #container_<?php print $id; ?> .plan-recommendicon i{
+        color: <?php print $settings['icon_clr'] ?> ;
+        font-weight: <?php print $settings['icon_font'] ?>;
+        font-size: <?php print $settings['icon_size'] ?>px;
+    }
+
+    #container_<?php print $id; ?> .price-item {
+        background: <?php print $settings['ftr_bgclr'] ?> none repeat scroll 0 0;
+    }
+
+    
+    @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+        .row {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+</style>
+
+<div class="content-section ptb-100">
+
+    <div id="container_<?php print $id;  ?>">
+
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xl-12" style="column-gap: 20px;display: flex;justify-content: center;">
+
+            <?php 
+               $test1 = json_encode($table);
+               foreach((array) $table as $i => $column) :  
+                ?>
+                <script>
+                    var arr = [];
+                    var uniqid = "id" + Math.random().toString(16).slice(2);
+                </script>
+                <div  id="card_innerhtml" class="col-lg-<?php print $settings['box_layout'] ?> col-md-<?php print $settings['box_layout'] ?> col-sm-6 use-margin">
+                    <div class="price-item" id="card">
+                        <div class="pricing-head">
+                            <div id="recommendbtn">
+                                <span class="plan-recommendicon"><i class="<?php print 'fa ' . $column['detail'] ?>"></i></span><span class="plan-recommendbtn"><?php print $column['recommendbtn'] ?></span>
+							</div>
+
+                            <h4 class="plan-title"><?php print $column['title'] ?></h4>
+
+                            <!-- test -->
+                            <h4 class="plan-plandescription"><?php print $column['plandescription'] ?></h4>
+                            <div class="price-container" style="display: flex;column-gap: 5px;margin-top: 20px;">
+                            <h4 class="plan-currency">$</h4>
+                            <h4 class="price"><?php print $column['price'] ?></h4>
+                            <h4 class="slash">/</h4>
+                            <h4 class="plan-billingperiodtype">Every <?php print $column['billingperiod'] ?> <span id="billingperiodtype"><?php print $column['billingperiodtype'] ?></span></h4>
+                            </div>
+                            <!-- test -->
+                        </div>
+                        <div class="pricing-content">
+                            <?php if(!empty($column['features'])) : ?>
+                                <ul class="table-content">
+                                    <?php foreach($column['features'] as $j => $feature) : ?>
+                                        <?php if (  ! empty( $feature['title'] ) ) : ?>
+                                            <li class="table-content-li"><?php print $feature['title'] ?></li>
+                                        <?php endif; ?>
+                                    <?php endforeach ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+                        <div class="pricing-footer">
+                            <button style="text-decoration: none;" id="subscription_btn" value="<?php print $column['id'] ?>" class="button bth-plan"><?php print $column['button'] ?></button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const subscription_btn = document.querySelectorAll("#subscription_btn");
+    console.log(subscription_btn);
+    subscription_btn.forEach(btn_element_id => {
+        btn_element_id.addEventListener("click", (e) => {
+            let test = <?php print $test1 ?>;
+            for(let index = 0; index < test.length; index++) {
+                const element = test[index];
+                if (element.id === btn_element_id.value) {
+                    let obj = {
+                        name: element.title,
+                        amount: parseInt(element.price),
+                        currency: element.currency,
+                        plan_id: uniqid,
+                        billing_cycle: element.billingperiodtype,
+                        frequency: element.billingperiod,
+                        trial_period: element.freetrial,
+                        isOneTypePayment: false
+                    }
+                    arr.push(obj) 
+    
+                    const data = {
+                        plan_object: arr,
+                        role: "wordpress_plugin",
+                        merchant_id: element.businessname,
+                        cancel_url: "https://chargely.com/consumer/billing/",
+                        redirect_url: element.redirecturl  
+                    }
+                    const open_test = window.btoa(JSON.stringify(data));
+                    console.log('open_test', open_test);
+                    window.location.href = "https://chargely.com/consumer/billing/" + open_test;  
+                }
+            }
+        });
+    });
+
+    var billingperiodtypehtml = document.querySelectorAll('#billingperiodtype');
+
+    billingperiodtypehtml.forEach(element => {
+        if (element.innerHTML === 'Weekly') {
+            element.innerHTML = `Weeks`;
+        }if (element.innerHTML === 'Monthly') {
+            element.innerHTML = `Months`;
+        }if (element.innerHTML === 'Yearly') {
+            element.innerHTML = `Year`;
+        }
+    });
+
+    var rbtn = document.querySelectorAll('#recommendbtn');
+
+    rbtn.forEach(element => {
+        if (element.outerText !== "") {
+            var parentEle = element.parentElement.parentElement;
+            parentEle.style.border = "3px solid <?php print $settings['rbtn_bgclr'] ?>";
+            parentEle.style.boxShadow = "0 8px 40px rgb(0 0 0 / 24%)";
+            parentEle.style.transform = "scale(1.1)";
+            element.style.backgroundColor  = '<?php print $settings['rbtn_bgclr'] ?>';
+            element.style.margin  = '-31px -31px 31px -31px';
+            element.style.padding  = '10px';
+        }
+    });
+
+</script>

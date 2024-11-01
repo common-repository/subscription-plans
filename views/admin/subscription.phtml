@@ -1,0 +1,570 @@
+<head>
+<script>
+    let Api_Key_Access = localStorage.getItem('Api_Key');
+    let Merchant_Id_Access = localStorage.getItem('Merchant_id');
+    if (!Api_Key_Access) {
+      window.location.href = "#error_popup_login";
+    }else if (!Merchant_Id_Access) {
+      window.location.href = "#error_popup_login";
+    }
+</script>
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .popup {
+        margin: 70px auto;
+        padding: 12px;
+        background: #ff0000;
+        border-radius: 5px;
+        width: 30%;
+        position: relative;
+        transition: all 5s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .popup .close {
+        transition: all 200ms;
+        font-size: 30px;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .popup .close:hover {
+        color: white;
+    }
+
+    .popup .close:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .popup .content_container {
+        height: 20px;
+        overflow: auto;
+        overflow: hidden;
+        text-align: center;
+        font-size: 18px;
+        color: white;
+    }
+    
+    .body{
+        margin: 50px;
+        background: white;
+        padding: 50px;
+        box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+        border-radius: 4px;
+    }
+    .search{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        float: right;
+        column-gap: 4px;
+    }
+    .head{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    input[type=search]:focus {
+        border-color: #611f69;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgb(98 31 105 / 20%);
+    }
+    .apply {
+        padding: 10px;
+        width: 181px;
+        border: none;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: #611f69;
+        border-radius: 4px;
+        box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<div class="body">
+    <div class="head">
+        <div class="title"><h1>Subscriptions</h1></div>
+        <div class="search">
+            <div>Search:</div>    
+            <div>
+                <input type="search" name="search" id="search" style="padding: 5px;">
+            </div>
+        </div>    
+    </div>
+
+    <div style="display: flex;align-items: center;column-gap: 4px;margin-bottom: 20px;">
+        <div><input id="remember" name="remember" type="checkbox" onclick="validate()" /></div>
+        <div>Allow consumer to cancel there subscriptions from there account</div>
+    </div>
+  
+
+    <table id="consumers" style="width: 100%;border-collapse: collapse;">
+        <thead style="background-color: #611f69;color: white;">
+            <tr>
+                <th style="padding:10px 0px 10px 10px;">Actions</th>
+                <th>Plan ID</th>
+                <th>Customer Name</th>
+                <th>Plan Name</th>
+                <th>Amount</th>						
+                <th>Billing Cycle</th>						
+                <th>Payment Method</th>
+                <th>Payment Gateway</th>
+                <th>Subscriptions Start Date</th>
+                <th>Subscriptions End Date</th>						
+                <th style="padding-right:10px;">Status</th>						
+            </tr>
+        </thead>
+        <tbody style="text-align: center;">
+            <tr>
+                <td style="padding: 10px;width: 10%;"><input type="checkbox" name="checkoutallevent" id="checkoutallevent"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+                <td style="padding: 10px;width: 10%;"></td>
+            </tr>
+        </tbody>
+        <tbody id="consumers_data" style="text-align: center;font-size: 14px;"></tbody>
+    </table>
+    <div id="page_per_number" style="display: flex;align-items: center;column-gap: 10px;margin-top: 20px;"></div>
+    <div style="display: flex;justify-content: flex-end;" id="cancel_subscription_container">
+        <button class="apply" id="cancel_subscription_btn">Canel Subscriptions</button>
+    </div>
+</div>
+
+<div id="cancel_subscription_confirmed" class="overlay" style="display: flex;align-items: center;justify-content: center;">
+    <div class="popup" style="background: #f0f0f1;    width: auto;padding:30px;">
+        <div class="content_container" style="height: 200px;display: flex;align-items: flex-end;justify-content: space-evenly;flex-direction: column;color: #1d2327;row-gap: 25px;width: 480px;height: 250px;">
+            <div style="display: flex;flex-direction: column;align-items: flex-start;row-gap: 25px;">
+                <div style="font-weight: 500;font-size: 28px;line-height: 33px;">Cancel Subscription?</div>
+                <div style="text-align: left;height: 83px;left: 433px;top: 291px;font-weight: 400;font-size: 22px;line-height: 28px;letter-spacing: 0.05em;color: #42526E;">
+                    By clicking on this button you will cancel your subscription. Would you like to continue with it? 
+                </div>    
+            </div>    
+            <div style="display: flex;align-items: center;column-gap: 20px;">
+                <div>
+                    <a style="text-decoration: none;color:#611f69;font-weight: 400;font-size: 20px;line-height: 23px;" href="admin.php?page=chargely_wordpress_subscription">Back</a>
+                </div>
+                <div>
+                    <button id="cancel_subscription_confirmed_btn" style="border: none;background: #611f69;padding: 10px 30px;border-radius: 30px;color: white;cursor: pointer;width: 160px;height: 45px;font-weight: 400;font-size: 20px;line-height: 23px;">Confirm</button>
+                </div>
+            </div>    
+        </div>  
+    </div>  
+</div>
+
+<div id="cancel_subscription_success" class="overlay">
+    <div class="popup" style="background: #198754;padding:10px;">
+        <div class="content_container" style="display: flex;align-items: center;height: 22px;justify-content: center;flex-direction: column;color: #1d2327;row-gap: 25px;width: 480px;">
+            <div style="color: white;line-height: 33px;">Subscription Has Cancelled Successfully</div>
+        </div>  
+    </div>  
+</div>
+
+<script>
+
+    function validate() {
+        console.log('ggg');
+        document.getElementById('remember').checked;
+    }
+
+    var cancel_subscription_btn = document.getElementById("cancel_subscription_btn");
+
+    // checked all
+    let checkoutallevent = document.querySelector('#checkoutallevent');
+                                
+    var checkboxes = document.getElementsByName('cancel_subscriptions');  
+                        
+    checkoutallevent.addEventListener('change', (e) =>{
+        for(var i=0; i<checkboxes.length; i++) {
+                        
+            checkboxes[i].checked = e.target.checked;
+        }
+    });
+
+    // Search
+    let search = document.querySelector("#search");
+    search.addEventListener("change", (e) => {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("consumers");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    });
+
+    let consumers_data = document.getElementById("consumers_data");
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("https://chargely.com/api/merchant/pagination?page_num=1&client=Consumer%20Subscription&merchant_id=" + Merchant_Id_Access, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        var result_parse = JSON.parse(result);
+
+        var count = result_parse.message.count;
+                        
+        var count_div = count/10;
+                                        
+        var isInt = Number.isInteger(count_div);
+        if (isInt === false) {
+            var split = count_div.toString().split('.');
+                        
+            var loop = JSON.parse(split[0]) + 1;
+                        
+            for (let index = 0; index < loop; index++) {
+                const element = index + 1;
+                var page_per_number = document.getElementById("page_per_number");
+                var page_per_number_html = `<input type="submit" style="cursor: pointer;padding: 5px 10px;box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;background-color: white;border: none;" value="${element}" id="page_number_btn">`;
+                page_per_number.innerHTML = page_per_number.innerHTML + page_per_number_html;
+                var page_number_btn = document.querySelectorAll("#page_number_btn");
+                page_number_btn.forEach(element => {
+                    element.addEventListener("click", (e) => {
+                        element.style.backgroundColor = "#611f69";
+                        element.style.color = "white";
+                        var requestOptions = {
+                            method: 'GET',
+                            redirect: 'follow'
+                        };
+
+                        fetch(`https://chargely.com/api/merchant/pagination?page_num=${element.value}&client=Consumer%20Subscription&merchant_id=${Merchant_Id_Access}`, requestOptions)
+                        .then(response => response.text())
+                        .then(result => {
+                            consumers_data.innerHTML = '';
+                            var result_parse = JSON.parse(result);
+                            for (let index = 0; index < result_parse.message.data.length; index++) {
+                                const element = result_parse.message.data[index];
+                                var billied_date = new Date(element.created_at);
+
+                                var subscriptions = element.plan_details;
+                                for (let index = 0; index < subscriptions.length; index++) {
+                                    const subscriptions_data = subscriptions[index];
+                                    if (element.role === "wordpress_plugin") {
+                                        if (subscriptions_data.isOneTypePayment === false) {
+                                            let consumers_data_html_first = `                    
+                                            <tr>`;
+
+                                            let consumers_data_html_second = '';
+
+                                            if (element.status === "Cancelled") {
+                                                consumers_data_html_second = `                    
+                                                    <td style="padding: 10px;width: 10%;"><input style="display:none;" type="checkbox" value="${subscriptions_data.plan_id}" name="cancel_subscriptions" id=""></td>`;
+                                            }else{
+                                                consumers_data_html_second = `                    
+                                                    <td style="padding: 10px;width: 10%;"><input type="checkbox" value="${subscriptions_data.plan_id}" name="cancel_subscriptions" id=""></td>`;
+                                            }
+
+                                            let consumers_data_html_third = `
+                                                <td style="padding: 10px;width: 5%;">${subscriptions_data.plan_id}</td>
+                                                <td style="padding: 10px;width: 10%;">${element.full_name}</td>
+                                                <td style="padding: 10px;width: 25%;">${subscriptions_data.name}</td>
+                                                <td style="padding: 10px;width: 10%;">${subscriptions_data.amount}</td>
+                                                <td style="padding: 10px;width: 10%;">${subscriptions_data.frequency} ${subscriptions_data.billing_cycle}</td>
+                                                <td style="padding: 10px;width: 10%;">${element.payment_method}</td>
+                                                <td style="padding: 10px;width: 10%;">${element.payment_gateway}</td>
+                                                <td style="padding: 10px;width: 10%;">${billied_date.toDateString('YYYY-MM-dd')}</td>`;
+
+                                            let consumers_data_html_middle = '';
+                                            
+                                            if (subscriptions_data.billing_cycle === "Weekly") {
+                                                // get week
+                                                var payment_date_week = new Date(element.created_at);
+                            
+                                                let no_of_week = JSON.parse(subscriptions_data.frequency);
+                                                payment_date_week.setDate(payment_date_week.getDate() + no_of_week * 7); 
+                                                let nxt_billing_week = new Date(payment_date_week);
+                                                consumers_data_html_middle = `
+                                                    <td style="padding: 10px;width: 10%;">${nxt_billing_week.toDateString('YYYY-MM-dd')}</td>`;
+                                
+                                            }else if (subscriptions_data.billing_cycle === "Monthly") {
+                                                // get months
+                                                var payment_date_month = new Date(element.created_at);
+                                                
+                                                let no_of_months = JSON.parse(subscriptions_data.frequency);
+                                                payment_date_month.setMonth(payment_date_month.getMonth() + no_of_months);
+
+                                                let nxt_billing_month = new Date(payment_date_month);
+                                                consumers_data_html_middle = `
+                                                    <td style="padding: 10px;width: 10%;">${nxt_billing_month.toDateString('YYYY-MM-dd')}</td>`;
+                                                
+                                            }else if (subscriptions_data.billing_cycle === "Yearly") {
+                                                // get year
+                                                var payment_date_year = new Date(element.created_at);
+                                                
+                                                let no_of_year = JSON.parse(subscriptions_data.frequency);
+                                                payment_date_year.setFullYear(payment_date_year.getFullYear() + no_of_year);
+                                                let nxt_billing_year = new Date(payment_date_year);
+                                                consumers_data_html_middle = `
+                                                    <td style="padding: 10px;width: 10%;">${nxt_billing_year.toDateString('YYYY-MM-dd')}</td>`;
+                                            }
+
+
+                                            let consumers_data_html_last = '';
+                                            
+                                            if (element.status === "Active") {
+                                                consumers_data_html_last = `<td style="padding: 10px;width: 10%;"><span style="background: green;color: white;padding: 6px 10px;border-radius: 4px;font-size: 14px;">${element.status}</span></td>`;
+                                            }else{
+                                                consumers_data_html_last = `<td style="padding: 10px;width: 10%;"><span style="background: red;color: white;padding: 6px 10px;border-radius: 4px;font-size: 14px;">${element.status}</span></td>`;
+                                            }
+
+                                            let consumers_data_html_end = `</tr>`;
+
+                                            let consumers_data_html_main = consumers_data_html_first + consumers_data_html_second + consumers_data_html_third + consumers_data_html_middle + consumers_data_html_last + consumers_data_html_end;
+                                            consumers_data.innerHTML =  consumers_data.innerHTML + consumers_data_html_main;
+                                            cancel_subscription_btn.addEventListener('click',(e) =>{
+                
+                                                var result = "";
+                                                var arr_checked = [];
+                                    
+                                                for (var i = 0; i < checkboxes.length; i++) {
+                                                    
+                                                    if (checkboxes[i].checked) {
+                                                        checkboxes[i].value;
+                                                        result += checkboxes[i].value;
+                                                        arr_checked.push(checkboxes[i].value);
+                                                        if (subscriptions_data.plan_id === checkboxes[i].value) {
+                                                            window.location.href = "#cancel_subscription_confirmed";
+                                                            var cancel_subscription_confirmed = document.getElementById("cancel_subscription_confirmed");
+                                                            var cancel_subscription_confirmed_btn = document.getElementById("cancel_subscription_confirmed_btn");
+                                                            cancel_subscription_confirmed_btn.addEventListener('click',(e) =>{
+                                                                cancel_subscription_confirmed.style.display = "none";
+                                                                var myHeaders = new Headers();
+                                                                myHeaders.append("Content-Type", "application/json");
+
+                                                                var raw = JSON.stringify({
+                                                                    "_id": element._id
+                                                                });
+
+                                                                var requestOptions = {
+                                                                    method: 'PUT',
+                                                                    headers: myHeaders,
+                                                                    body: raw,
+                                                                    redirect: 'follow'
+                                                                };
+
+                                                                fetch("https://chargely.com/api/v1/cancel/consumer/subscription", requestOptions)
+                                                                .then(response => response.text())
+                                                                .then(result => {
+                                                                    let response = JSON.parse(result);
+                                                                    if (response.success === true) {
+                                                                        window.location.href = "#cancel_subscription_success";
+                                                                        setTimeout(myStopFunction, 3000);
+
+                                                                        function myStopFunction() {
+                                                                            window.location.href = "admin.php?page=chargely_wordpress_subscription"
+                                                                        }
+                                                                    }
+
+                                                                });
+                                                            });
+                                                        }
+
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+        }
+
+        for (let index = 0; index < result_parse.message.data.length; index++) {
+            const element = result_parse.message.data[index];
+            var billied_date = new Date(element.created_at);
+            var subscriptions = element.plan_details;
+            for (let index = 0; index < subscriptions.length; index++) {
+                const subscriptions_data = subscriptions[index];
+                if (element.role === "wordpress_plugin") {
+                    if (subscriptions_data.isOneTypePayment === false) {
+
+                        let consumers_data_html_first = `                    
+                        <tr>`;
+
+                        let consumers_data_html_second = '';
+
+                        if (element.status === "Cancelled") {
+                            consumers_data_html_second = `                    
+                            <td style="padding: 10px;width: 10%;"><input style="display:none;" type="checkbox" value="${subscriptions_data.plan_id}" name="cancel_subscriptions" id=""></td>`;
+                        }else{
+                            consumers_data_html_second = `                    
+                            <td style="padding: 10px;width: 10%;"><input type="checkbox" value="${subscriptions_data.plan_id}" name="cancel_subscriptions" id=""></td>`;
+                        }
+
+                        let consumers_data_html_third = `                    
+                            <td style="padding: 10px;width: 10%;">${subscriptions_data.plan_id}</td>
+                            <td style="padding: 10px;width: 10%;">${element.full_name}</td>
+                            <td style="padding: 10px;width: 25%;">${subscriptions_data.name}</td>
+                            <td style="padding: 10px;width: 10%;">${subscriptions_data.amount}</td>
+                            <td style="padding: 10px;width: 10%;">${subscriptions_data.frequency} ${subscriptions_data.billing_cycle}</td>
+                            <td style="padding: 10px;width: 10%;">${element.payment_method}</td>
+                            <td style="padding: 10px;width: 10%;">${element.payment_gateway}</td>
+                            <td style="padding: 10px;width: 10%;">${billied_date.toDateString('YYYY-MM-dd')}</td>`;
+    
+                        let consumers_data_html_middle = '';
+                        
+                        if (subscriptions_data.billing_cycle === "Weekly") {
+                            // get week
+                            var payment_date_week = new Date(element.created_at);
+                            
+                            let no_of_week = JSON.parse(subscriptions_data.frequency);
+                            payment_date_week.setDate(payment_date_week.getDate() + no_of_week * 7); 
+                            let nxt_billing_week = new Date(payment_date_week);
+                            consumers_data_html_middle = `
+                                <td style="padding: 10px;width: 10%;">${nxt_billing_week.toDateString('YYYY-MM-dd')}</td>`;
+                            
+                        }else if (subscriptions_data.billing_cycle === "Monthly") {
+                            // get months
+                            var payment_date_month = new Date(element.created_at);
+                            
+                            let no_of_months = JSON.parse(subscriptions_data.frequency);
+                            payment_date_month.setMonth(payment_date_month.getMonth() + no_of_months);
+    
+                            let nxt_billing_month = new Date(payment_date_month);
+                            consumers_data_html_middle = `
+                                <td style="padding: 10px;width: 10%;">${nxt_billing_month.toDateString('YYYY-MM-dd')}</td>`;
+                            
+                        }else if (subscriptions_data.billing_cycle === "Yearly") {
+                            // get year
+                            var payment_date_year = new Date(element.created_at);
+                            
+                            let no_of_year = JSON.parse(subscriptions_data.frequency);
+                            payment_date_year.setFullYear(payment_date_year.getFullYear() + no_of_year);
+                            let nxt_billing_year = new Date(payment_date_year);
+                            consumers_data_html_middle = `
+                                <td style="padding: 10px;width: 10%;">${nxt_billing_year.toDateString('YYYY-MM-dd')}</td>`;
+                        }
+    
+                        let consumers_data_html_last = '';
+                                            
+                        if (element.status === "Active") {
+                            consumers_data_html_last = `<td style="padding: 10px;width: 10%;"><span style="background: green;color: white;padding: 6px 10px;border-radius: 4px;font-size: 14px;">${element.status}</span></td>`;
+                        }else{
+                            consumers_data_html_last = `<td style="padding: 10px;width: 10%;"><span style="background: red;color: white;padding: 6px 10px;border-radius: 4px;font-size: 14px;">${element.status}</span></td>`;
+                        }
+    
+                        let consumers_data_html_end = `</tr>`;
+    
+                        let consumers_data_html_main = consumers_data_html_first + consumers_data_html_second + consumers_data_html_third + consumers_data_html_middle + consumers_data_html_last + consumers_data_html_end;
+                        consumers_data.innerHTML = consumers_data.innerHTML + consumers_data_html_main;
+
+                        cancel_subscription_btn.addEventListener('click',(e) =>{
+                
+                            var result = "";
+                            var arr_checked = [];
+                
+                            for (var i = 0; i < checkboxes.length; i++) {
+                                                    
+                                if (checkboxes[i].checked) {
+                                    checkboxes[i].value;
+                                    result += checkboxes[i].value;
+                                    arr_checked.push(checkboxes[i].value);
+                                    if (subscriptions_data.plan_id === checkboxes[i].value) {
+                                        window.location.href = "#cancel_subscription_confirmed";
+                                        var cancel_subscription_confirmed = document.getElementById("cancel_subscription_confirmed");
+                                        var cancel_subscription_confirmed_btn = document.getElementById("cancel_subscription_confirmed_btn");
+                                        cancel_subscription_confirmed_btn.addEventListener('click',(e) =>{
+                                            cancel_subscription_confirmed.style.display = "none";
+                                            var myHeaders = new Headers();
+                                            myHeaders.append("Content-Type", "application/json");
+
+                                            var raw = JSON.stringify({
+                                                "_id": element._id
+                                            });
+
+                                            var requestOptions = {
+                                                method: 'PUT',
+                                                headers: myHeaders,
+                                                body: raw,
+                                                redirect: 'follow'
+                                            };
+
+                                            fetch("https://chargely.com/api/v1/cancel/consumer/subscription", requestOptions)
+                                            .then(response => response.text())
+                                            .then(result => {
+                                                let response = JSON.parse(result);
+                                                if (response.success === true) {
+                                                    window.location.href = "#cancel_subscription_success";
+                                                    setTimeout(myStopFunction, 3000);
+
+                                                    function myStopFunction() {
+                                                        window.location.href = "admin.php?page=chargely_wordpress_subscription"
+                                                    }
+                                                }
+
+                                            });
+                                        });
+                                    }
+
+                                } else {
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+<div id="error_popup_login" class="overlay">
+    <div class="popup">
+        <div class="content_container">Need To Login</div>  
+        <div><a class="close" href="admin.php?page=chargely_wordpress_login">×</a></div>
+    </div>  
+</div>

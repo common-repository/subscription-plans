@@ -1,0 +1,357 @@
+<script>
+    let Api_Key_Access = localStorage.getItem('Api_Key');
+    let Merchant_Id_Access = localStorage.getItem('Merchant_id');
+    if (!Api_Key_Access) {
+      alert("Need To Login");
+      window.location.href = "admin.php?page=chargely_wordpress_login";
+    }else if (!Merchant_Id_Access) {
+      alert("Need To Enter Merchant ID");
+      window.location.href = "admin.php?page=chargely_wordpress_login";
+    }
+</script>
+
+<style>
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+label{
+	font-size: 14px;
+}
+.logout{
+	height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2271b1;
+    color: #ffffff;
+    padding: 10px;
+    width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.logout:hover{
+	background-color:#135e96;
+}
+.preview button{
+		display : none;
+}
+.price-item{
+	width: 190px;
+    background-color: #F6F6F6;
+    padding: 30px;
+    box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 15%);
+}
+a:focus{
+	box-shadow:none;
+	outline:none;
+}
+input::placeholder {
+    opacity: 0.5;
+    color: black;
+}
+
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    opacity: 0.5;
+    color: black;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    opacity: 0.5;
+    color: black;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    opacity: 0.5;
+    color: black;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    opacity: 0.5;
+    color: black;
+}
+input::-ms-input-placeholder { /* Microsoft Edge */
+    opacity: 0.5;
+    color: black;
+}
+
+input::placeholder { /* Most modern browsers support this now. */
+    opacity: 0.5;
+    color: black;
+}
+#recommend_container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+select{
+	border: none;
+	padding: 0 20px 0 0;
+}
+.wp-core-ui select{
+	padding: 0 24px 0 0;
+}
+.icon-span-css{
+
+}
+</style>
+
+<!--Add value card  -->
+	<div class="price-columns">
+
+		<div style="display: flex;align-items: center;justify-content: space-between;">
+			<div>
+				<a href="edit.php?post_type=chargely-plugin">View All Price Tables</a>
+			</div>
+			<div class="logout" id="button_submit">Logout</div>
+		</div>
+
+		<!-- <div>
+			<div>Preview</div>
+		</div> -->
+
+		<div style="display: flex;align-items: center;justify-content: space-between;">
+			<div>
+				<h3>Add Price Table</h3>        
+			</div>
+		</div>
+
+		<div id="column-skeleton" style="display:none">
+				<span class="ui-icon ui-icon-carat-2-e-w column-handle"></span>
+				<a href="#" class="ui-icon ui-icon-trash submitdelete deletion"></a>
+			<br>			
+			<form action="" method="post">
+			<input style="display:none;" type="password" id="" class="column-id form-control" name="" placeholder="<?php _e('id', 'chargely-plugin') ?>" readonly style="color:#ccc; background:#F5F5F5; cursor: not-allowed;" >
+			
+			<div class="form-group input-group" id="recommend_container">
+				<div>
+					<input id="input_i" style="border-radius: 5px 0 0 5px;display: none;" data-placement="bottomRight" name="price_detail" class="column-detail form-control icp icp-auto"  value="fa-laptop"   placeholder="<?php _e('fa-laptop', 'chargely-plugin') ?>" type="text" style="width: calc(100% - 36px);border-right: none;" readonly="readonly"   />
+					<span style="height: 28px;border-radius: 0 5px 5px 0;display: flex;align-items: center;" class="input-group-addon icon-span-css"><i style="font-size:30px;" class="fa fa-laptop"></i></span>
+				</div>
+
+				<div>
+					<input style="width: 100%;border: none;background-color: #f8f7f7;margin-left: 18px;" type="text" id="input_recommend" class="column-recommendbtn" name="" placeholder="<?php _e('Recommend Button', 'chargely-plugin') ?>" />
+				</div>
+			</div>
+
+			<input type="text" id="input_title" class="column-title" name="" style="width: 100%;border: none;background-color: #f8f7f7;" placeholder="<?php _e('Basic', 'chargely-plugin') ?>">
+			<textarea type="text" id="input_description" style="border: none;background: none;height: 60px;padding: 5px;" class="column-plandescription" name="" placeholder="<?php _e('Lorem Ipsum Lorem Ipsum Lorem Ipsum', 'chargely-plugin') ?>" rows="5" cols=""></textarea>
+			<input type="text" style="display:none;" class="column-businessname" name="" placeholder="<?php _e('Business Name', 'chargely-plugin') ?>"  >
+			<div style="display: flex;column-gap: 5px;align-items: center;justify-content: center;font-size: 14px;">
+				<div>
+					<select style="background-color: #f8f7f7;" name="" id="input_currency" type="select" class="column-currency" placeholder="<?php _e('Currency', 'chargely-plugin') ?>" >
+						<option value="" disabled selected hidden>USD</option>	
+						<option value="USD" name="">USD</option>
+						<option value="GBP" name="">GBP</option>
+						<option value="NZD" name="">NZD</option>
+						<option value="AUD" name="">AUD</option>
+					</select>
+				</div>
+				<div>
+					<input style="width: 26px;padding: 0px;border: none;background-color: #f8f7f7;" id="input_price" type="number" min="3" class="column-price" name="" placeholder="<?php _e('3', 'chargely-plugin') ?>" >
+				</div>
+				<div>
+					/ 
+				</div>
+				<div>
+					Every
+				</div>
+				<div>
+					<select style="background-color: #f8f7f7;" name="" id="billing_fequence" type="select" class="column-billingperiod" placeholder="<?php _e('Billing Period', 'chargely-plugin') ?>" >
+						<option value="" disabled selected hidden>1</option>	
+						<option value="1" name="">1</option>
+						<option value="2" name="">2</option>
+						<option value="3" name="">3</option>
+						<option value="4" name="">4</option>
+						<option value="5" name="">5</option>
+						<option value="6" name="">6</option>
+						<option value="7" name="">7</option>
+						<option value="8" name="">8</option>
+						<option value="9" name="">9</option>
+						<option value="10" name="">10</option>
+						<option value="11" name="">11</option>
+						<option value="12" name="">12</option>
+						<option value="13" name="">13</option>
+						<option value="14" name="">14</option>
+						<option value="15" name="">15</option>
+						<option value="16" name="">16</option>
+						<option value="17" name="">17</option>
+						<option value="18" name="">18</option>
+						<option value="19" name="">19</option>
+						<option value="20" name="">20</option>
+						<option value="21" name="">21</option>
+						<option value="22" name="">22</option>
+						<option value="23" name="">23</option>
+						<option value="24" name="">24</option>
+						<option value="25" name="">25</option>
+						<option value="26" name="">26</option>
+						<option value="27" name="">27</option>
+						<option value="28" name="">28</option>
+						<option value="29" name="">29</option>
+						<option value="30" name="">30</option>
+					</select>
+					</div>
+					<div>
+					<select style="background-color: #f8f7f7;" id="billing_cycle" name="" type="select" class="column-billingperiodtype" placeholder="<?php _e('Billing Period Type', 'chargely-plugin') ?>" >
+						<option value="" disabled selected hidden>Weeks</option>	
+						<option value="Weekly" name="">Weeks</option>
+						<option value="Monthly" name="">Months</option>
+						<option value="Yearly" name="">Year</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- test -->
+			<input type="number" style="width: 100%;border: none;background-color: #f8f7f7;" min="0" class="column-freetrial" name="" placeholder="<?php _e('14 days Free trial', 'chargely-plugin') ?>" />
+
+			<input type="url" style="display:none;" class="column-redirecturl" name="" id="redirect_url" placeholder="<?php _e('Redirect URL', 'chargely-plugin') ?>" >
+			<script>
+				let redirect_url = document.getElementById("redirect_url");
+        		redirect_url.value=location.origin;
+			</script>
+			<h4 style="padding-left: 5px;"><a href="#" class="addfeature"><?php _e('Add', 'chargely-plugin') ?></a><?php _e('Features', 'chargely-plugin') ?></h4>
+			<div class="feautres">
+				<div class="feature">
+					<span class="ui-icon ui-icon-carat-2-n-s feature-handle"></span>
+					<a href="#" class="ui-icon ui-icon-trash submitdelete deletion"></a>
+					<div><input type="text" class="feature-title" placeholder="<?php _e('Title', 'chargely-plugin') ?>" style="border: none;background-color: #f8f7f7;" /></div>
+				</div>
+			</div>
+			<input style="text-align: center;background: orange;margin: 20px 0px;width: 150px;" type="text" class="column-button" id="input_btn" name="" placeholder="<?php _e('Button Text', 'chargely-plugin') ?>" />
+
+		</div>
+		
+		</form>
+
+		<?php // Existing columns of the price table ?>
+		<?php foreach($table as $i => $column) : ?>
+			<div class="column">
+				<span class="ui-icon ui-icon-carat-2-e-w column-handle"></span>
+				<a href="#" class="ui-icon ui-icon-trash submitdelete deletion"></a>
+				<br>
+								
+				<input style="display:none;" type="password" class="column-id" name="price_<?php print $i ?>_id" value="<?php @esc_attr_e($column['id']) ?>" placeholder="<?php _e('id', 'chargely-plugin') ?>" readonly style="color:#ccc; background:#F5F5F5; cursor: not-allowed;" />
+				
+				<div class="form-group input-group" style="display: flex;align-items: center;justify-content: center;">
+					<div>
+						<input data-placement="bottomRight" id="input_i" name="price_<?php print $i ?>_detail" class="column-detail form-control icp icp-auto" value="<?php @esc_attr_e($column['detail']) ?>" placeholder="<?php _e('fa-laptop', 'chargely-plugin') ?>" type="text" readonly="readonly" style="width: calc(100% - 36px);border-right: none;display: none;" />
+						<span class="input-group-addon icon-span-css" style="font-size: 24px;"><i class="fa fa-laptop" style="font: size 30px;"></i></span>
+					</div>
+
+					<div>
+						<input style="width: 100%;border: none;background-color: #f8f7f7;" id="input_recommend" style="width: 100%;" type="text" class="column-recommendbtn" name="price_<?php print $i ?>_recommendbtn" value="<?php @esc_attr_e($column['recommendbtn']) ?>" placeholder="<?php _e('Recommend Button', 'chargely-plugin') ?>" />
+					</div>
+				</div>
+
+				<input type="text" style="border: none;background-color: #f8f7f7;" id="input_title_edit" class="column-title" name="price_<?php print $i ?>_title" value="<?php @esc_attr_e($column['title']) ?>" placeholder="<?php _e('Title', 'chargely-plugin') ?>" required >
+				
+				<!-- test -->
+				<textarea type="text" style="border: none;background: none;height: 60px;padding: 5px;"  id="input_description" class="column-plandescription" name="price_<?php print $i ?>_plandescription" placeholder="<?php _e('Plan Descripton', 'chargely-plugin') ?>" rows="5" cols=""><?php @esc_attr_e($column['plandescription']) ?></textarea>
+				<input type="text" style="display:none;" class="column-businessname" name="price_<?php print $i ?>_businessname" value="<?php @esc_attr_e($column['businessname']) ?>" placeholder="<?php _e('Business Name', 'chargely-plugin') ?>" required>
+								
+				<div style="display: flex;column-gap: 5px;align-items: center;justify-content: center;font-size: 14px;">
+						<div>
+							<select style="background-color: #f8f7f7;" id="input_currency" type="select" class="column-currency" name="price_<?php print $i ?>_currency" value="<?php @esc_attr_e($column['currency']) ?>" placeholder="<?php _e('Currency', 'chargely-plugin') ?>" required>
+								<option value="<?php @esc_attr_e($column['currency']) ?>" name=""><?php @esc_attr_e($column['currency']) ?></option>
+								<option value="USD" name="">USD</option>
+								<option value="GBP" name="">GBP</option>
+								<option value="NZD" name="">NZD</option>
+								<option value="AUD" name="">AUD</option>
+							</select>
+						</div>
+						
+						<div>
+							<input id="input_price" type="number" min="3" style="width: 32px;padding: 0px;border: none;background-color: #f8f7f7;" class="column-price" name="price_<?php print $i ?>_price" value="<?php @esc_attr_e($column['price']) ?>" placeholder="<?php _e('Price', 'chargely-plugin') ?>" required>
+						</div>
+
+						<div>/</div>
+
+						<div>Every</div>
+
+						<div>
+							<select style="background-color: #f8f7f7;" id="billing_fequence" type="select" style="width: 74px;" class="column-billingperiod" name="price_<?php print $i ?>_billingperiod" value="<?php @esc_attr_e($column['billingperiod']) ?>" placeholder="<?php _e('Billing Period', 'chargely-plugin') ?>"  required>
+								<option value="<?php @esc_attr_e($column['billingperiod']) ?>" name=""><?php @esc_attr_e($column['billingperiod']) ?></option>
+								<option value="1" name="">1</option>
+								<option value="2" name="">2</option>
+								<option value="3" name="">3</option>
+								<option value="4" name="">4</option>
+								<option value="5" name="">5</option>
+								<option value="6" name="">6</option>
+								<option value="7" name="">7</option>
+								<option value="8" name="">8</option>
+								<option value="9" name="">9</option>
+								<option value="10" name="">10</option>
+								<option value="11" name="">11</option>
+								<option value="12" name="">12</option>
+								<option value="13" name="">13</option>
+								<option value="14" name="">14</option>
+								<option value="15" name="">15</option>
+								<option value="16" name="">16</option>
+								<option value="17" name="">17</option>
+								<option value="18" name="">18</option>
+								<option value="19" name="">19</option>
+								<option value="20" name="">20</option>
+								<option value="21" name="">21</option>
+								<option value="22" name="">22</option>
+								<option value="23" name="">23</option>
+								<option value="24" name="">24</option>
+								<option value="25" name="">25</option>
+								<option value="26" name="">26</option>
+								<option value="27" name="">27</option>
+								<option value="28" name="">28</option>
+								<option value="29" name="">29</option>
+								<option value="30" name="">30</option>
+							</select>
+						</div>
+
+						<div>
+							<select style="background-color: #f8f7f7;" id="billing_cycle" type="select" class="column-billingperiodtype" name="price_<?php print $i ?>_billingperiodtype" value="<?php @esc_attr_e($column['billingperiodtype']) ?>" placeholder="<?php _e('Billing Period Type', 'chargely-plugin') ?>"  required>
+								<option value="<?php @esc_attr_e($column['billingperiodtype']) ?>" name=""><?php @esc_attr_e($column['billingperiodtype']) ?></option>
+								<option value="Weekly" name="">Weeks</option>
+								<option value="Monthly" name="">Months</option>
+								<option value="Yearly" name="">Year</option>
+							</select>
+						</div>
+				</div>
+
+				<!-- test -->
+
+				<input type="number" style="width: 15%;border: none;background-color: #f8f7f7;" class="column-freetrial" name="price_<?php print $i ?>_freetrial" value="<?php @esc_attr_e($column['freetrial']) ?>" placeholder="<?php _e('Free Trial', 'chargely-plugin') ?>" /><span>days Free trial</span>
+				<input type="url" style="display:none;" class="column-redirecturl" name="price_<?php print $i ?>_redirecturl" value="<?php @esc_attr_e($column['redirecturl']) ?>" placeholder="<?php _e('Redirect URL', 'chargely-plugin') ?>" required>
+
+				
+				<h4 style="margin-left: 5px;"><a href="#" class="addfeature"><?php _e('Add', 'chargely-plugin') ?></a><?php _e('Features', 'chargely-plugin') ?></h4>
+				<div class="feautres">
+					<?php if(isset($column['features'])) : foreach($column['features'] as $j => $feature) : ?>
+						<div class="feature">
+							<span class="ui-icon ui-icon-carat-2-n-s feature-handle"></span>
+							<a href="#" class="ui-icon ui-icon-trash submitdelete deletion"></a>
+							<div><input style="width: 100%;border: none;background-color: #f8f7f7;" type="text" class="feature-title" name="price_<?php print $i ?>_feature_<?php print $j ?>_title" value="<?php esc_attr_e($feature['title']) ?>" placeholder="<?php _e('Title', 'chargely-plugin') ?>"/></div>
+						</div>
+					<?php endforeach; endif; ?>
+				</div>
+
+				<input type="text" id="input_btn" style="background: orange;text-align: center;width: 150px;" class="column-button" name="price_<?php print $i ?>_button" value="<?php @esc_attr_e($column['button']) ?>" placeholder="<?php _e('Button Text', 'chargely-plugin') ?>" required />
+
+			</div>
+		<?php endforeach ?>
+		
+
+		<div class="column addnew" style=""><span>+</span><?php _e('Add Plan', 'chargely-plugin') ?></div>
+		<div class="clear"></div>
+	</div>
+	<div class="row" style="overflow:hidden;display:block;width:100%;padding-top:20px">
+		<div class="col-md-4">
+			<div class="demoftr">	
+				<div class="">
+					<div class="wpsm_home_portfolio_showcase">
+						<div class="wpsm_ribbon"><a target="_blank" href="#"><span> Selected </span></a></div>
+						<a target="_blank" href="<?php print plugins_url('images/pricetable.png', __FILE__) ?>"><img class="wpsm_img_responsive ftr_img" src="<?php print plugins_url('images/pricetable.png', __FILE__) ?>"></a>
+					</div>
+				</div>
+				<div style="padding:13px;overflow:hidden; background: #EFEFEF; border-top: 1px dashed #ccc;">
+					<h3 class="txt text-center pull-left" style="margin-top: 10px;margin-bottom: 10px;font-weight:400">Selected Design</h3>
+					<a type="button"  class="pull-right btn design_btn" id="templates_btn1" target="_blank" href="<?php print plugins_url('template.phtml', __FILE__) ?>" >Check Demo</a>
+				</div>		
+			</div>	
+		</div>
+	</div>

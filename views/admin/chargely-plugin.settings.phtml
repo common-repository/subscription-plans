@@ -1,0 +1,607 @@
+<?php 
+	$def_settings  = 
+			array(
+				'box_layout' => '6', 
+			);
+    $settings = isset( get_post_meta( $post->ID,'chargely_plugin_setting' )[0] ) ? 
+    		get_post_meta( $post->ID,'chargely_plugin_setting' )[0] :
+    		$def_settings ;	
+?>
+
+<style>
+	.wp-color-result-text{
+		display:none;
+	}
+	.wp-picker-container .wp-color-result.button{
+		border: none;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+	}
+</style>
+
+    <table class="form-table acc_table">
+	    <tbody>
+		    <tr >
+			   <th><?php _e('Plan Layout','chargely-plugin'); ?> </th>
+			   <td>
+				   <select name="box_layout" id="box_layout" class="standard-dropdown" style="width:100%" >
+						<option value="6"  <?php if( $settings['box_layout'] == '6') { print "selected"; } ?>><?php _e('Two Column Layout', 'chargely-plugin') ?></option>
+						<option value="4" <?php if( $settings['box_layout'] == '4') { print "selected"; } ?>><?php _e('Three Column Layout', 'chargely-plugin') ?></option>
+						<option value="3"  <?php if( $settings['box_layout'] == '3') { print "selected"; } ?>><?php _e('Four Column Layout', 'chargely-plugin') ?></option>
+				   </select>
+			    </td>
+		    </tr>
+
+			<tr style="display: flex;">
+			   	<th><?php _e('Card Width','chargely-plugin'); ?> </th>
+			   	<td>
+				   <input style="width:100%;" id="card_width" name="card_width" type="text" value="<?php if(!empty($settings['card_width'] )) { @esc_attr_e($settings['card_width']) ; } else { print "220"; } ?>"/>
+				</td>    
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Table Background Colour','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="ftr_bgclr" name="ftr_bgclr" type="text" value="<?php if(!empty($settings['ftr_bgclr'] )) { @esc_attr_e($settings['ftr_bgclr']) ; } else { print "#F6F6F6"; } ?>" class="my-color-field" data-default-color="#F6F6F6" />
+				</td>
+			</tr>
+
+		    <tr style="display: flex;">
+				<th scope="row"><label><?php _e('Title Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="title_clr" name="title_clr" type="text" value="<?php if(!empty($settings['title_clr'] )) { @esc_attr_e($settings['title_clr']) ; } else { print "#252325"; } ?>" class="my-color-field" data-default-color="#252325" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Description Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="plandescription_clr" name="plandescription_clr" type="text" value="<?php if(!empty($settings['plandescription_clr'] )) { @esc_attr_e($settings['plandescription_clr']) ; } else { print "#706361"; } ?>" class="my-color-field" data-default-color="#706361" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Price Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="price_clr" name="price_clr" type="text" value="<?php if(!empty($settings['price_clr'] )) { @esc_attr_e($settings['price_clr']) ; } else { print "#000000"; } ?>" class="my-color-field" data-default-color="#000000" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Features Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="ftr_clr" name="ftr_clr" type="text" value="<?php if(!empty($settings['ftr_clr'] )) { @esc_attr_e($settings['ftr_clr']) ; } else { print "#000000"; } ?>" class="my-color-field" data-default-color="#000000" />
+				</td>
+			</tr>
+			
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Button Colour','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="button_clr" name="button_clr" type="text" value="<?php if(!empty($settings['button_clr'] )) { @esc_attr_e($settings['button_clr']) ; } else { print "#28772c"; } ?>" class="my-color-field" data-default-color="#28772c" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Button Hover Colour','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="buttonhover_clr" name="buttonhover_clr" type="text" value="<?php if(!empty($settings['buttonhover_clr'] )) { @esc_attr_e($settings['buttonhover_clr']) ; } else { print "darkgreen"; } ?>" class="my-color-field" data-default-color="#401046" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Recommend Icon Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="icon_clr" name="icon_clr" type="text" value="<?php if(!empty($settings['icon_clr'] )) { @esc_attr_e($settings['icon_clr']) ; } else { print "#000000"; } ?>" class="my-color-field" data-default-color="#000000" />
+				</td>
+			</tr>
+
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Recommend Text Color','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="rbtn_clr" name="rbtn_clr" type="text" value="<?php if(!empty($settings['rbtn_clr'] )) { @esc_attr_e($settings['rbtn_clr']) ; } else { print "#000000"; } ?>" class="my-color-field" data-default-color="#000000" />
+				</td>
+			</tr>
+			
+			<tr style="display: flex;">
+				<th scope="row"><label><?php _e('Recommend Background Colour','chargely-plugin'); ?></label></th>
+				<td>
+					<input id="rbtn_bgclr" name="rbtn_bgclr" type="text" value="<?php if(!empty($settings['rbtn_bgclr'] )) { @esc_attr_e($settings['rbtn_bgclr']) ; } else { print "#ffa500"; } ?>" class="my-color-field" data-default-color="#ffa500" />
+				</td>
+			</tr>
+			
+			<tr class="setting_color">
+				<th><?php _e('Title Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="title_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="title_size" name="title_size"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Title Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="title_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="title_font" name="title_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Description Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="plandescription_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="plandescription_size" name="plandescription_size"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Description Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="plandescription_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="plandescription_font" name="plandescription_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Price Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="price_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="price_size" name="price_size"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Price Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="price_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="price_font" name="price_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Features Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="ftr_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="ftr_size" name="ftr_size"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Feature Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="ftr_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="ftr_font" name="ftr_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Button Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="button_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="button_size" name="button_size"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Button Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="button_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="button_font" name="button_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Recommend Icon Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="icon_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="icon_size" name="icon_size"  readonly="readonly">
+				</td>
+			</tr>
+			
+			<tr class="setting_color">
+				<th><?php _e('Recommend Icon Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="icon_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="icon_font" name="icon_font"  readonly="readonly">
+				</td>
+			</tr>
+
+			<tr class="setting_color">
+				<th><?php _e('Recommend Button Text Font Size','chargely-plugin'); ?> </th>
+				<td>
+					<div id="rbtn_text_size_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="rbtn_text_size" name="rbtn_text_size"  readonly="readonly">
+				</td>
+			</tr>
+			
+			<tr class="setting_color">
+				<th><?php _e('Recommend Button Text Font Weight','chargely-plugin'); ?> </th>
+				<td>
+					<div id="rbtn_text_font_id" class="size-slider" ></div>
+					<input type="text" class="slider-text" id="rbtn_text_font" name="rbtn_text_font"  readonly="readonly">
+				</td>
+			</tr>
+
+	    </tbody>
+    </table>
+
+    <script>
+		 //Title Size Slider 
+		  jQuery(function() {
+		    jQuery( "#title_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 40,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#title_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#title_size_id" ).slider("value",<?php if(!empty($settings['title_size'] )) { @esc_attr_e($settings['title_size']) ; } else { print "20"; } ?> );
+				jQuery( "#title_size" ).val( jQuery( "#title_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+    <script>
+		 //Title Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#title_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#title_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#title_font_id" ).slider("value",<?php if(!empty($settings['title_font'] )) { @esc_attr_e($settings['title_font']) ; } else { print "600"; } ?> );
+				jQuery( "#title_font" ).val( jQuery( "#title_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Description Size Slider 
+		  jQuery(function() {
+		    jQuery( "#plandescription_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 40,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#plandescription_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#plandescription_size_id" ).slider("value",<?php if(!empty($settings['plandescription_size'] )) { @esc_attr_e($settings['plandescription_size']) ; } else { print "16"; } ?> );
+				jQuery( "#plandescription_size" ).val( jQuery( "#plandescription_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Description Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#plandescription_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#plandescription_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#plandescription_font_id" ).slider("value",<?php if(!empty($settings['plandescription_font'] )) { @esc_attr_e($settings['plandescription_font']) ; } else { print "400"; } ?> );
+				jQuery( "#plandescription_font" ).val( jQuery( "#plandescription_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Currency Size Slider 
+		  jQuery(function() {
+		    jQuery( "#currency_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 40,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#currency_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#currency_size_id" ).slider("value",<?php if(!empty($settings['currency_size'] )) { @esc_attr_e($settings['currency_size']) ; } else { print "18"; } ?> );
+				jQuery( "#currency_size" ).val( jQuery( "#currency_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Currency Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#currency_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#currency_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#currency_font_id" ).slider("value",<?php if(!empty($settings['currency_font'] )) { @esc_attr_e($settings['currency_font']) ; } else { print "700"; } ?> );
+				jQuery( "#currency_font" ).val( jQuery( "#currency_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Slash Size Slider 
+		  jQuery(function() {
+		    jQuery( "#slash_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 40,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#slash_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#slash_size_id" ).slider("value",<?php if(!empty($settings['slash_size'] )) { @esc_attr_e($settings['slash_size']) ; } else { print "18"; } ?> );
+				jQuery( "#slash_size" ).val( jQuery( "#slash_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Slash Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#slash_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#slash_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#slash_font_id" ).slider("value",<?php if(!empty($settings['slash_font'] )) { @esc_attr_e($settings['slash_font']) ; } else { print "700"; } ?> );
+				jQuery( "#slash_font" ).val( jQuery( "#slash_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+    <script>
+		 //Price Size Slider 
+		  jQuery(function() {
+		    jQuery( "#price_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 60,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#price_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#price_size_id" ).slider("value",<?php if(!empty($settings['price_size'] )) { @esc_attr_e($settings['price_size']) ; } else { print "18"; } ?> );
+				jQuery( "#price_size" ).val( jQuery( "#price_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Price Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#price_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#price_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#price_font_id" ).slider("value",<?php if(!empty($settings['price_font'] )) { @esc_attr_e($settings['price_font']) ; } else { print "700"; } ?> );
+				jQuery( "#price_font" ).val( jQuery( "#price_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Billing Period Type Size Slider 
+		  jQuery(function() {
+		    jQuery( "#billingperiodtype_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 40,
+				min:5,
+				slide: function( event, ui ) {
+				jQuery( "#billingperiodtype_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#billingperiodtype_size_id" ).slider("value",<?php if(!empty($settings['billingperiodtype_size'] )) { @esc_attr_e($settings['billingperiodtype_size']) ; } else { print "18"; } ?> );
+				jQuery( "#billingperiodtype_size" ).val( jQuery( "#billingperiodtype_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+    <script>
+		 //Billing Period Type Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#billingperiodtype_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#billingperiodtype_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#billingperiodtype_font_id" ).slider("value",<?php if(!empty($settings['billingperiodtype_font'] )) { @esc_attr_e($settings['billingperiodtype_font']) ; } else { print "700"; } ?> );
+				jQuery( "#billingperiodtype_font" ).val( jQuery( "#billingperiodtype_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+	
+    <script>
+		 //Icon Size Slider 
+		  jQuery(function() {
+		    jQuery( "#icon_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 90,
+				min:10,
+				slide: function( event, ui ) {
+				jQuery( "#icon_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#icon_size_id" ).slider("value",<?php if(!empty($settings['icon_size'] )) { @esc_attr_e($settings['icon_size']) ; } else { print "60"; } ?> );
+				jQuery( "#icon_size" ).val( jQuery( "#icon_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Icon Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#icon_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#icon_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#icon_font_id" ).slider("value",<?php if(!empty($settings['icon_font'] )) { @esc_attr_e($settings['icon_font']) ; } else { print "600"; } ?> );
+				jQuery( "#icon_font" ).val( jQuery( "#icon_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Icon Size Slider 
+		  jQuery(function() {
+		    jQuery( "#rbtn_text_size_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 90,
+				min:10,
+				slide: function( event, ui ) {
+				jQuery( "#rbtn_text_size" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#rbtn_text_size_id" ).slider("value",<?php if(!empty($settings['rbtn_text_size'] )) { @esc_attr_e($settings['rbtn_text_size']) ; } else { print "20"; } ?> );
+				jQuery( "#rbtn_text_size" ).val( jQuery( "#rbtn_text_size_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+		 //Icon Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#rbtn_text_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#rbtn_text_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#rbtn_text_font_id" ).slider("value",<?php if(!empty($settings['rbtn_text_font'] )) { @esc_attr_e($settings['rbtn_text_font']) ; } else { print "600"; } ?> );
+				jQuery( "#rbtn_text_font" ).val( jQuery( "#rbtn_text_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+    <script>
+
+	 //Feature Size script
+	  jQuery(function() {
+	    jQuery( "#ftr_size_id" ).slider({
+			orientation: "horizontal",
+			range: "min",
+			max: 30,
+			min:5,
+			slide: function( event, ui ) {
+			jQuery( "#ftr_size" ).val( ui.value );
+	      }
+			});
+			
+			jQuery( "#ftr_size_id" ).slider("value",<?php if(!empty($settings['ftr_size'] )) { @esc_attr_e($settings['ftr_size']) ; } else { print "16"; } ?>);
+			jQuery( "#ftr_size" ).val( jQuery( "#ftr_size_id" ).slider( "value") );
+	    
+	  });
+    </script>  
+
+	<script>
+		 //Feature Font Weight Slider 
+		  jQuery(function() {
+		    jQuery( "#ftr_font_id" ).slider({
+				orientation: "horizontal",
+				range: "min",
+				max: 900,
+				min:100,
+				slide: function( event, ui ) {
+				jQuery( "#ftr_font" ).val( ui.value );
+		      }
+				});
+				
+				jQuery( "#ftr_font_id" ).slider("value",<?php if(!empty($settings['ftr_font'] )) { @esc_attr_e($settings['ftr_font']) ; } else { print "400"; } ?> );
+				jQuery( "#ftr_font" ).val( jQuery( "#ftr_font_id" ).slider( "value") );
+		    
+		  });
+    </script>
+
+	<script>
+
+	//Button Size script
+	jQuery(function() {
+	jQuery( "#button_size_id" ).slider({
+		orientation: "horizontal",
+		range: "min",
+		max: 30,
+		min:5,
+		slide: function( event, ui ) {
+		jQuery( "#button_size" ).val( ui.value );
+		}
+		});
+		
+		jQuery( "#button_size_id" ).slider("value",<?php if(!empty($settings['button_size'] )) { @esc_attr_e($settings['button_size']) ; } else { print "16"; } ?>);
+		jQuery( "#button_size" ).val( jQuery( "#button_size_id" ).slider( "value") );
+	
+	});
+	</script>  
+
+	<script>
+		//Button Font Weight Slider 
+		jQuery(function() {
+		jQuery( "#button_font_id" ).slider({
+			orientation: "horizontal",
+			range: "min",
+			max: 900,
+			min:100,
+			slide: function( event, ui ) {
+			jQuery( "#button_font" ).val( ui.value );
+			}
+			});
+			
+			jQuery( "#button_font_id" ).slider("value",<?php if(!empty($settings['button_font'] )) { @esc_attr_e($settings['button_font']) ; } else { print "400"; } ?> );
+			jQuery( "#button_font" ).val( jQuery( "#button_font_id" ).slider( "value") );
+		
+		});
+	</script>
